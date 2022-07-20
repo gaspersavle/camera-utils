@@ -1,0 +1,15 @@
+version: '2.4' # 3.8
+
+services:
+  ros-realsense:
+    container_name: ros-realsense
+    build: ./build
+    network_mode: host
+    privileged: true
+    devices:
+      - "/dev:/dev"
+    environment:
+      - ROS_MASTER_URI=http://134.76.92.17:11311
+      - ROS_IP=134.76.92.17 # $ hostname -I
+    command: roslaunch realsense2_camera rs_camera.launch filters:=pointcloud
+    restart: unless-stopped
