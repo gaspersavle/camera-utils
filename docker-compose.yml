@@ -11,5 +11,5 @@ services:
     environment:
       - ROS_MASTER_URI=http://134.76.92.17:11311
       - ROS_IP=134.76.92.17 # $ hostname -I
-    command: roslaunch realsense2_camera rs_camera.launch filters:=pointcloud
+    command: roslaunch realsense2_camera rs_camera.launch filters:=pointcloud align_depth:=true enable_sync:=true camera:=realsense
     restart: unless-stopped
