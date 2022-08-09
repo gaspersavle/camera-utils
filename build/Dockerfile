@@ -26,7 +26,8 @@ RUN apt -q -qq update && \
   ros-${ROS_DISTRO}-jsk-tools \
   ros-${ROS_DISTRO}-rgbd-launch \
   ros-${ROS_DISTRO}-image-transport-plugins \
-  ros-${ROS_DISTRO}-image-transport
+  ros-${ROS_DISTRO}-image-transport \
+  ros-${ROS_DISTRO}-aruco-ros
 
 RUN rosdep update
 
@@ -43,6 +44,8 @@ RUN touch /root/.bashrc && \
   echo "rossetmaster localhost"
 
 RUN rm -rf /var/lib/apt/lists/*
+
+COPY rs_camera_and_aruco.launch /catkin_ws/src/realsense-ros/realsense2_camera/launch/
 
 COPY ./ros_entrypoint.sh /
 ENTRYPOINT ["/ros_entrypoint.sh"]
