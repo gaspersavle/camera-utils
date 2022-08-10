@@ -13,9 +13,13 @@ services:
       - ROS_IP=10.20.1.133 # $ hostname -I
     # volumes:
       # - launch:/catkin_ws/src/realsense-ros/realsense2_camera/launch
-    command: roslaunch realsense2_camera rs_camera_and_aruco.launch filters:=pointcloud align_depth:=true enable_sync:=true camera:=realsense
+    
+    # launch and immediately disable the camera
+    command: bash -c "(sleep 5 && rosservice call /realsense/enable False) & roslaunch realsense2_camera rs_camera_and_aruco.launch filters:=pointcloud align_depth:=true enable_sync:=true camera:=realsense enable:=false"
+    
     # to get nice colorized output, use:
     # filters:=pointcloud,colorizer
+    
     restart: "no"
 
 # volumes:
