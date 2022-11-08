@@ -11,21 +11,16 @@ services:
     environment:
       - ROS_MASTER_URI=http://10.20.0.1:11311
       - ROS_IP=10.20.1.133 # $ hostname -I
-    # volumes:
-      # - launch:/catkin_ws/src/realsense-ros/realsense2_camera/launch
     
     # launch and immediately disable the camera
-    command: bash -c "(sleep 5 && rosservice call /realsense/enable False) & roslaunch realsense2_camera rs_camera_and_aruco.launch filters:=pointcloud align_depth:=true enable_sync:=true camera:=realsense enable:=false"
+    command: bash -c "(sleep 10 && rosservice call /realsense/enable False) & roslaunch realsense2_camera rs_camera_and_aruco.launch align_depth:=true enable_sync:=true camera:=realsense enable:=false"
     
+    # for pointcloud use:
+    # filters:=pointcloud
     # to get nice colorized output, use:
     # filters:=pointcloud,colorizer
+
+    # this causes crashing:
+    # initial_reset:=true
     
     restart: "no"
-
-# volumes:
-#     launch:
-#       driver: local
-#       driver_opts:
-#         type: none
-#         o: bind
-#         device: ./launch
